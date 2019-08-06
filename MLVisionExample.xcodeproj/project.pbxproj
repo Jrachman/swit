@@ -18,12 +18,6 @@
 		10224B762087E5A900A77316 /* grace_hopper.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 10224B702087E5A900A77316 /* grace_hopper.jpg */; };
 		1077670E210FBBB6007A19A7 /* liberty.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1077670D210FBBB6007A19A7 /* liberty.jpg */; };
 		1077670F210FBBB6007A19A7 /* liberty.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1077670D210FBBB6007A19A7 /* liberty.jpg */; };
-		10E114E420E5CBAA0013E4A4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 10E114E320E5CBAA0013E4A4 /* AppDelegate.m */; };
-		10E114E720E5CBAA0013E4A4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10E114E620E5CBAA0013E4A4 /* ViewController.m */; };
-		10E114F220E5CBAE0013E4A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 10E114F120E5CBAE0013E4A4 /* main.m */; };
-		10E1151420EBF5EB0013E4A4 /* UIUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 10E1151320EBF5EB0013E4A4 /* UIUtilities.m */; };
-		10E1151720EBF6220013E4A4 /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10E1151620EBF6220013E4A4 /* CameraViewController.m */; };
-		10E1151A20EBF7E10013E4A4 /* UIImage+VisionDetection.m in Sources */ = {isa = PBXBuildFile; fileRef = 10E1151920EBF7E10013E4A4 /* UIImage+VisionDetection.m */; };
 		10E1152120F3D5F60013E4A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB287B3C20729CE90069707A /* Main.storyboard */; };
 		10E1152520F3DFE20013E4A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1001E6FC20CF0C8F00445CB3 /* Assets.xcassets */; };
 		10E1152620F3E0930013E4A4 /* grace_hopper.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 10224B702087E5A900A77316 /* grace_hopper.jpg */; };
@@ -54,17 +48,6 @@
 		10224B702087E5A900A77316 /* grace_hopper.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = grace_hopper.jpg; path = Resources/grace_hopper.jpg; sourceTree = "<group>"; };
 		1077670D210FBBB6007A19A7 /* liberty.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = liberty.jpg; sourceTree = "<group>"; };
 		10E114E020E5CBAA0013E4A4 /* MLVisionExampleObjc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MLVisionExampleObjc.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		10E114E220E5CBAA0013E4A4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		10E114E320E5CBAA0013E4A4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		10E114E520E5CBAA0013E4A4 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		10E114E620E5CBAA0013E4A4 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		10E114F120E5CBAE0013E4A4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		10E1151220EBF5EB0013E4A4 /* UIUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIUtilities.h; sourceTree = "<group>"; };
-		10E1151320EBF5EB0013E4A4 /* UIUtilities.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIUtilities.m; sourceTree = "<group>"; };
-		10E1151520EBF6220013E4A4 /* CameraViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
-		10E1151620EBF6220013E4A4 /* CameraViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
-		10E1151820EBF7E10013E4A4 /* UIImage+VisionDetection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+VisionDetection.h"; sourceTree = "<group>"; };
-		10E1151920EBF7E10013E4A4 /* UIImage+VisionDetection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+VisionDetection.m"; sourceTree = "<group>"; };
 		30CCA45647EC8709301ADC28 /* Pods-MLVisionExampleObjc.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLVisionExampleObjc.debug.xcconfig"; path = "Target Support Files/Pods-MLVisionExampleObjc/Pods-MLVisionExampleObjc.debug.xcconfig"; sourceTree = "<group>"; };
 		3A4D075E0558B8E377D2038E /* Pods-MLVisionExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLVisionExample.debug.xcconfig"; path = "Target Support Files/Pods-MLVisionExample/Pods-MLVisionExample.debug.xcconfig"; sourceTree = "<group>"; };
 		3EEA633F5BD5D97F0FE07337 /* Pods_MLVisionExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLVisionExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -121,24 +104,6 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		10E114E120E5CBAA0013E4A4 /* MLVisionExampleObjc */ = {
-			isa = PBXGroup;
-			children = (
-				10E114E220E5CBAA0013E4A4 /* AppDelegate.h */,
-				10E114E320E5CBAA0013E4A4 /* AppDelegate.m */,
-				10E114E520E5CBAA0013E4A4 /* ViewController.h */,
-				10E114E620E5CBAA0013E4A4 /* ViewController.m */,
-				10E114F120E5CBAE0013E4A4 /* main.m */,
-				10E1151220EBF5EB0013E4A4 /* UIUtilities.h */,
-				10E1151320EBF5EB0013E4A4 /* UIUtilities.m */,
-				10E1151520EBF6220013E4A4 /* CameraViewController.h */,
-				10E1151620EBF6220013E4A4 /* CameraViewController.m */,
-				10E1151820EBF7E10013E4A4 /* UIImage+VisionDetection.h */,
-				10E1151920EBF7E10013E4A4 /* UIImage+VisionDetection.m */,
-			);
-			path = MLVisionExampleObjc;
-			sourceTree = "<group>";
-		};
 		4A6B92E043DF5CB67A731FA6 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -157,7 +122,6 @@
 				1001E6FC20CF0C8F00445CB3 /* Assets.xcassets */,
 				10224B642087E52600A77316 /* Resources */,
 				BB287B3720729CE90069707A /* MLVisionExample */,
-				10E114E120E5CBAA0013E4A4 /* MLVisionExampleObjc */,
 				BB287B3620729CE90069707A /* Products */,
 				4A6B92E043DF5CB67A731FA6 /* Pods */,
 				C6FB8A81F3A873EEF812AF94 /* Frameworks */,
@@ -475,12 +439,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				10E1151720EBF6220013E4A4 /* CameraViewController.m in Sources */,
-				10E1151A20EBF7E10013E4A4 /* UIImage+VisionDetection.m in Sources */,
-				10E114E720E5CBAA0013E4A4 /* ViewController.m in Sources */,
-				10E114F220E5CBAE0013E4A4 /* main.m in Sources */,
-				10E1151420EBF5EB0013E4A4 /* UIUtilities.m in Sources */,
-				10E114E420E5CBAA0013E4A4 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
