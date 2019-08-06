@@ -10,15 +10,12 @@
 		1001E6F720CEE0DD00445CB3 /* UIUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1001E6F620CEE0DD00445CB3 /* UIUtilities.swift */; };
 		1001E6F920CF021E00445CB3 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1001E6F820CF021E00445CB3 /* CameraViewController.swift */; };
 		1001E6FD20CF0C8F00445CB3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1001E6FC20CF0C8F00445CB3 /* Assets.xcassets */; };
-		1001E70120CF132C00445CB3 /* shared in Resources */ = {isa = PBXBuildFile; fileRef = 1001E70020CF132C00445CB3 /* shared */; };
 		100D2A50222F37DB00DF5C02 /* automl_labeler_labels.txt in Resources */ = {isa = PBXBuildFile; fileRef = B217D4A8220D24C9001CE5AA /* automl_labeler_labels.txt */; };
 		100D2A51222F37DE00DF5C02 /* automl_labeler_manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = B217D4A9220D24CA001CE5AA /* automl_labeler_manifest.json */; };
 		100D2A52222F37E100DF5C02 /* automl_labeler_model.tflite in Resources */ = {isa = PBXBuildFile; fileRef = B217D4AA220D24CA001CE5AA /* automl_labeler_model.tflite */; };
 		10224B582087E43100A77316 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10224B572087E43100A77316 /* ViewController.swift */; };
 		10224B5E2087E49F00A77316 /* MLKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10224B5B2087E49F00A77316 /* MLKitExtensions.swift */; };
 		10224B762087E5A900A77316 /* grace_hopper.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 10224B702087E5A900A77316 /* grace_hopper.jpg */; };
-		1036DA2A2087CC16003253C9 /* MLVisionExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1036DA292087CC16003253C9 /* MLVisionExampleTests.swift */; };
-		1036DA382087CC26003253C9 /* MLVisionExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1036DA372087CC26003253C9 /* MLVisionExampleUITests.swift */; };
 		1077670E210FBBB6007A19A7 /* liberty.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1077670D210FBBB6007A19A7 /* liberty.jpg */; };
 		1077670F210FBBB6007A19A7 /* liberty.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1077670D210FBBB6007A19A7 /* liberty.jpg */; };
 		10E114E420E5CBAA0013E4A4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 10E114E320E5CBAA0013E4A4 /* AppDelegate.m */; };
@@ -34,7 +31,6 @@
 		10E1152820F3E0990013E4A4 /* beach.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7202DC6720D0C1A300034C35 /* beach.jpg */; };
 		10E1152920F3E09C0013E4A4 /* image_has_text.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7202DC6520D0C1A300034C35 /* image_has_text.jpg */; };
 		10E1152A20F3E09F0013E4A4 /* qr_code.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7202DC6420D0C1A300034C35 /* qr_code.jpg */; };
-		10E1156520F4681E0013E4A4 /* shared in Resources */ = {isa = PBXBuildFile; fileRef = 1001E70020CF132C00445CB3 /* shared */; };
 		159A92BB110417B9295D4BE0 /* Pods_MLVisionExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EEA633F5BD5D97F0FE07337 /* Pods_MLVisionExample.framework */; };
 		6AC296D8F1BC84A354D9BCFF /* Pods_MLVisionExampleObjc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9088B9544CF990F38889C81D /* Pods_MLVisionExampleObjc.framework */; };
 		7202DC6920D0C1A300034C35 /* qr_code.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7202DC6420D0C1A300034C35 /* qr_code.jpg */; };
@@ -49,37 +45,13 @@
 		FFB0227822F9665000A05B6A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FFB0227722F9665000A05B6A /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		1036DA2C2087CC16003253C9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BB287B2D20729CE90069707A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = BB287B3420729CE90069707A;
-			remoteInfo = MLVisionExample;
-		};
-		1036DA3A2087CC26003253C9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BB287B2D20729CE90069707A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = BB287B3420729CE90069707A;
-			remoteInfo = MLVisionExample;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		1001E6F620CEE0DD00445CB3 /* UIUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIUtilities.swift; sourceTree = "<group>"; };
 		1001E6F820CF021E00445CB3 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		1001E6FC20CF0C8F00445CB3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		1001E70020CF132C00445CB3 /* shared */ = {isa = PBXFileReference; lastKnownFileType = folder; name = shared; path = ../shared; sourceTree = "<group>"; };
 		10224B572087E43100A77316 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		10224B5B2087E49F00A77316 /* MLKitExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLKitExtensions.swift; sourceTree = "<group>"; };
 		10224B702087E5A900A77316 /* grace_hopper.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = grace_hopper.jpg; path = Resources/grace_hopper.jpg; sourceTree = "<group>"; };
-		1036DA272087CC16003253C9 /* MLVisionExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MLVisionExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1036DA292087CC16003253C9 /* MLVisionExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLVisionExampleTests.swift; sourceTree = "<group>"; };
-		1036DA2B2087CC16003253C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1036DA352087CC25003253C9 /* MLVisionExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MLVisionExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1036DA372087CC26003253C9 /* MLVisionExampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLVisionExampleUITests.swift; sourceTree = "<group>"; };
-		1036DA392087CC26003253C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1077670D210FBBB6007A19A7 /* liberty.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = liberty.jpg; sourceTree = "<group>"; };
 		10E114E020E5CBAA0013E4A4 /* MLVisionExampleObjc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MLVisionExampleObjc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10E114E220E5CBAA0013E4A4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -114,20 +86,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		1036DA242087CC16003253C9 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1036DA322087CC25003253C9 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		10E114DD20E5CBAA0013E4A4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -163,24 +121,6 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		1036DA282087CC16003253C9 /* MLVisionExampleTests */ = {
-			isa = PBXGroup;
-			children = (
-				1036DA292087CC16003253C9 /* MLVisionExampleTests.swift */,
-				1036DA2B2087CC16003253C9 /* Info.plist */,
-			);
-			path = MLVisionExampleTests;
-			sourceTree = "<group>";
-		};
-		1036DA362087CC26003253C9 /* MLVisionExampleUITests */ = {
-			isa = PBXGroup;
-			children = (
-				1036DA372087CC26003253C9 /* MLVisionExampleUITests.swift */,
-				1036DA392087CC26003253C9 /* Info.plist */,
-			);
-			path = MLVisionExampleUITests;
-			sourceTree = "<group>";
-		};
 		10E114E120E5CBAA0013E4A4 /* MLVisionExampleObjc */ = {
 			isa = PBXGroup;
 			children = (
@@ -214,12 +154,9 @@
 			isa = PBXGroup;
 			children = (
 				FFB0227722F9665000A05B6A /* GoogleService-Info.plist */,
-				1001E70020CF132C00445CB3 /* shared */,
 				1001E6FC20CF0C8F00445CB3 /* Assets.xcassets */,
 				10224B642087E52600A77316 /* Resources */,
 				BB287B3720729CE90069707A /* MLVisionExample */,
-				1036DA282087CC16003253C9 /* MLVisionExampleTests */,
-				1036DA362087CC26003253C9 /* MLVisionExampleUITests */,
 				10E114E120E5CBAA0013E4A4 /* MLVisionExampleObjc */,
 				BB287B3620729CE90069707A /* Products */,
 				4A6B92E043DF5CB67A731FA6 /* Pods */,
@@ -231,8 +168,6 @@
 			isa = PBXGroup;
 			children = (
 				BB287B3520729CE90069707A /* MLVisionExample.app */,
-				1036DA272087CC16003253C9 /* MLVisionExampleTests.xctest */,
-				1036DA352087CC25003253C9 /* MLVisionExampleUITests.xctest */,
 				10E114E020E5CBAA0013E4A4 /* MLVisionExampleObjc.app */,
 			);
 			name = Products;
@@ -272,42 +207,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1036DA262087CC16003253C9 /* MLVisionExampleTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1036DA302087CC16003253C9 /* Build configuration list for PBXNativeTarget "MLVisionExampleTests" */;
-			buildPhases = (
-				1036DA232087CC16003253C9 /* Sources */,
-				1036DA242087CC16003253C9 /* Frameworks */,
-				1036DA252087CC16003253C9 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				1036DA2D2087CC16003253C9 /* PBXTargetDependency */,
-			);
-			name = MLVisionExampleTests;
-			productName = MLVisionExampleTests;
-			productReference = 1036DA272087CC16003253C9 /* MLVisionExampleTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		1036DA342087CC25003253C9 /* MLVisionExampleUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1036DA3C2087CC26003253C9 /* Build configuration list for PBXNativeTarget "MLVisionExampleUITests" */;
-			buildPhases = (
-				1036DA312087CC25003253C9 /* Sources */,
-				1036DA322087CC25003253C9 /* Frameworks */,
-				1036DA332087CC25003253C9 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				1036DA3B2087CC26003253C9 /* PBXTargetDependency */,
-			);
-			name = MLVisionExampleUITests;
-			productName = MLVisionExampleUITests;
-			productReference = 1036DA352087CC25003253C9 /* MLVisionExampleUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 		10E114DF20E5CBAA0013E4A4 /* MLVisionExampleObjc */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 10E1150F20E5CBAE0013E4A4 /* Build configuration list for PBXNativeTarget "MLVisionExampleObjc" */;
@@ -358,16 +257,6 @@
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Google Inc.";
 				TargetAttributes = {
-					1036DA262087CC16003253C9 = {
-						CreatedOnToolsVersion = 9.3;
-						ProvisioningStyle = Automatic;
-						TestTargetID = BB287B3420729CE90069707A;
-					};
-					1036DA342087CC25003253C9 = {
-						CreatedOnToolsVersion = 9.3;
-						ProvisioningStyle = Automatic;
-						TestTargetID = BB287B3420729CE90069707A;
-					};
 					10E114DF20E5CBAA0013E4A4 = {
 						CreatedOnToolsVersion = 9.4;
 						ProvisioningStyle = Automatic;
@@ -393,28 +282,12 @@
 			projectRoot = "";
 			targets = (
 				BB287B3420729CE90069707A /* MLVisionExample */,
-				1036DA262087CC16003253C9 /* MLVisionExampleTests */,
-				1036DA342087CC25003253C9 /* MLVisionExampleUITests */,
 				10E114DF20E5CBAA0013E4A4 /* MLVisionExampleObjc */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		1036DA252087CC16003253C9 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1036DA332087CC25003253C9 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		10E114DE20E5CBAA0013E4A4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -426,7 +299,6 @@
 				10E1152820F3E0990013E4A4 /* beach.jpg in Resources */,
 				B217D4AB220D24CA001CE5AA /* automl_labeler_labels.txt in Resources */,
 				10E1152620F3E0930013E4A4 /* grace_hopper.jpg in Resources */,
-				10E1156520F4681E0013E4A4 /* shared in Resources */,
 				10E1152920F3E09C0013E4A4 /* image_has_text.jpg in Resources */,
 				10E1152A20F3E09F0013E4A4 /* qr_code.jpg in Resources */,
 				B217D4AC220D24CA001CE5AA /* automl_labeler_manifest.json in Resources */,
@@ -439,7 +311,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FFB0227822F9665000A05B6A /* GoogleService-Info.plist in Resources */,
-				1001E70120CF132C00445CB3 /* shared in Resources */,
 				100D2A51222F37DE00DF5C02 /* automl_labeler_manifest.json in Resources */,
 				10224B762087E5A900A77316 /* grace_hopper.jpg in Resources */,
 				7202DC6C20D0C1A300034C35 /* beach.jpg in Resources */,
@@ -600,22 +471,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		1036DA232087CC16003253C9 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1036DA2A2087CC16003253C9 /* MLVisionExampleTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1036DA312087CC25003253C9 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1036DA382087CC26003253C9 /* MLVisionExampleUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		10E114DC20E5CBAA0013E4A4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -643,19 +498,6 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		1036DA2D2087CC16003253C9 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = BB287B3420729CE90069707A /* MLVisionExample */;
-			targetProxy = 1036DA2C2087CC16003253C9 /* PBXContainerItemProxy */;
-		};
-		1036DA3B2087CC26003253C9 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = BB287B3420729CE90069707A /* MLVisionExample */;
-			targetProxy = 1036DA3A2087CC26003253C9 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXVariantGroup section */
 		BB287B3C20729CE90069707A /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -668,82 +510,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		1036DA2E2087CC16003253C9 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = MLVisionExampleTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.google.firebase.quickstart.MLVisionExampleTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MLVisionExample.app/MLVisionExample";
-			};
-			name = Debug;
-		};
-		1036DA2F2087CC16003253C9 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = MLVisionExampleTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.google.firebase.quickstart.MLVisionExampleTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MLVisionExample.app/MLVisionExample";
-			};
-			name = Release;
-		};
-		1036DA3D2087CC26003253C9 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = MLVisionExampleUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.google.firebase.quickstart.MLVisionExampleUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "985b9882-0e66-4497-8f7c-bd6c3bc484f7";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = MLVisionExample;
-			};
-			name = Debug;
-		};
-		1036DA3E2087CC26003253C9 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = MLVisionExampleUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.google.firebase.quickstart.MLVisionExampleUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "985b9882-0e66-4497-8f7c-bd6c3bc484f7";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = MLVisionExample;
-			};
-			name = Release;
-		};
 		10E1150920E5CBAE0013E4A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 30CCA45647EC8709301ADC28 /* Pods-MLVisionExampleObjc.debug.xcconfig */;
@@ -932,24 +698,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1036DA302087CC16003253C9 /* Build configuration list for PBXNativeTarget "MLVisionExampleTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1036DA2E2087CC16003253C9 /* Debug */,
-				1036DA2F2087CC16003253C9 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		1036DA3C2087CC26003253C9 /* Build configuration list for PBXNativeTarget "MLVisionExampleUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1036DA3D2087CC26003253C9 /* Debug */,
-				1036DA3E2087CC26003253C9 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		10E1150F20E5CBAE0013E4A4 /* Build configuration list for PBXNativeTarget "MLVisionExampleObjc" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
