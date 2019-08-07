@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1001E6F720CEE0DD00445CB3 /* UIUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1001E6F620CEE0DD00445CB3 /* UIUtilities.swift */; };
-		1001E6F920CF021E00445CB3 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1001E6F820CF021E00445CB3 /* CameraViewController.swift */; };
 		1001E6FD20CF0C8F00445CB3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1001E6FC20CF0C8F00445CB3 /* Assets.xcassets */; };
 		100D2A50222F37DB00DF5C02 /* automl_labeler_labels.txt in Resources */ = {isa = PBXBuildFile; fileRef = B217D4A8220D24C9001CE5AA /* automl_labeler_labels.txt */; };
 		100D2A51222F37DE00DF5C02 /* automl_labeler_manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = B217D4A9220D24CA001CE5AA /* automl_labeler_manifest.json */; };
@@ -41,7 +40,6 @@
 
 /* Begin PBXFileReference section */
 		1001E6F620CEE0DD00445CB3 /* UIUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIUtilities.swift; sourceTree = "<group>"; };
-		1001E6F820CF021E00445CB3 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		1001E6FC20CF0C8F00445CB3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		10224B572087E43100A77316 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		10224B5B2087E49F00A77316 /* MLKitExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLKitExtensions.swift; sourceTree = "<group>"; };
@@ -144,7 +142,6 @@
 				10224B572087E43100A77316 /* ViewController.swift */,
 				10224B5B2087E49F00A77316 /* MLKitExtensions.swift */,
 				1001E6F620CEE0DD00445CB3 /* UIUtilities.swift */,
-				1001E6F820CF021E00445CB3 /* CameraViewController.swift */,
 				BB287B4A2072A0200069707A /* Supporting Files */,
 				BB287B4420729CE90069707A /* Info.plist */,
 			);
@@ -447,7 +444,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				10224B582087E43100A77316 /* ViewController.swift in Sources */,
-				1001E6F920CF021E00445CB3 /* CameraViewController.swift in Sources */,
 				BB287B3920729CE90069707A /* AppDelegate.swift in Sources */,
 				10224B5E2087E49F00A77316 /* MLKitExtensions.swift in Sources */,
 				1001E6F720CEE0DD00445CB3 /* UIUtilities.swift in Sources */,

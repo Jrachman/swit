@@ -15,7 +15,6 @@
 //
 
 import UIKit
-
 import Firebase
 
 /// Main view controller class.
@@ -45,16 +44,12 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
 
   /// An image picker for accessing the photo library or camera.
   var imagePicker = UIImagePickerController()
-    
-  // Image counter.
-  var currentImage = 0
 
   // MARK: - IBOutlets
 
   // @IBOutlet fileprivate weak var detectorPicker: UIPickerView!
   @IBOutlet fileprivate weak var imageView: UIImageView!
   @IBOutlet fileprivate weak var photoCameraButton: UIBarButtonItem!
-  @IBOutlet fileprivate weak var videoCameraButton: UIBarButtonItem!
   @IBOutlet weak var detectButton: UIBarButtonItem!
   @IBOutlet var downloadProgressView: UIProgressView!
 
@@ -63,7 +58,6 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    // imageView.image = UIImage(named: Constants.images[currentImage])
     imageView.addSubview(annotationOverlayView)
     NSLayoutConstraint.activate([
       annotationOverlayView.topAnchor.constraint(equalTo: imageView.topAnchor),
@@ -75,23 +69,13 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
     imagePicker.delegate = self
     imagePicker.sourceType = .photoLibrary
 
-    /* detectorPicker.delegate = self
-    detectorPicker.dataSource = self */
-
     let isCameraAvailable = UIImagePickerController.isCameraDeviceAvailable(.front) ||
       UIImagePickerController.isCameraDeviceAvailable(.rear)
     if isCameraAvailable {
       // `CameraViewController` uses `AVCaptureDevice.DiscoverySession` which is only supported for
-      // iOS 10 or newer.
-      if #available(iOS 10.0, *) {
-        videoCameraButton.isEnabled = true
-      }
     } else {
       photoCameraButton.isEnabled = false
     }
-
-    /* let defaultRow = (DetectorPickerRow.rowsCount / 2) - 1
-    detectorPicker.selectRow(defaultRow, inComponent: 0, animated: false) */
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -127,12 +111,6 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
     imagePicker.sourceType = .camera
     present(imagePicker, animated: true)
   }
-    
-  /* @IBAction func changeImage(_ sender: Any) {
-    clearResults()
-    currentImage = (currentImage + 1) % Constants.images.count
-    imageView.image = UIImage(named: Constants.images[currentImage])
-  } */
 
   // MARK: - Private
 
@@ -173,12 +151,12 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
     var scaledImageWidth: CGFloat = 0.0
     var scaledImageHeight: CGFloat = 0.0
     switch orientation {
-    case .portrait, .portraitUpsideDown, .unknown:
-      scaledImageWidth = imageView.bounds.size.width
-      scaledImageHeight = image.size.height * scaledImageWidth / image.size.width
-    case .landscapeLeft, .landscapeRight:
-      scaledImageWidth = image.size.width * scaledImageHeight / image.size.height
-      scaledImageHeight = imageView.bounds.size.height
+        case .portrait, .portraitUpsideDown, .unknown:
+          scaledImageWidth = imageView.bounds.size.width
+          scaledImageHeight = image.size.height * scaledImageWidth / image.size.width
+        case .landscapeLeft, .landscapeRight:
+          scaledImageWidth = image.size.width * scaledImageHeight / image.size.height
+          scaledImageHeight = imageView.bounds.size.height
     }
     DispatchQueue.global(qos: .userInitiated).async {
       // Scale image while maintaining aspect ratio so it displays better in the UIImageView.
@@ -220,272 +198,6 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
 
   private func pointFrom(_ visionPoint: VisionPoint) -> CGPoint {
     return CGPoint(x: CGFloat(visionPoint.x.floatValue), y: CGFloat(visionPoint.y.floatValue))
-  }
-
-  private func addContours(forFace face: VisionFace, transform: CGAffineTransform) {
-    // Face
-    if let faceContour = face.contour(ofType: .face) {
-      for point in faceContour.points {
-        let transformedPoint = pointFrom(point).applying(transform);
-        UIUtilities.addCircle(
-          atPoint: transformedPoint,
-          to: annotationOverlayView,
-          color: UIColor.yellow,
-          radius: Constants.smallDotRadius
-        )
-      }
-    }
-
-    // Eyebrows
-    if let topLeftEyebrowContour = face.contour(ofType: .leftEyebrowTop) {
-      for point in topLeftEyebrowContour.points {
-        let transformedPoint = pointFrom(point).applying(transform);
-        UIUtilities.addCircle(
-          atPoint: transformedPoint,
-          to: annotationOverlayView,
-          color: UIColor.yellow,
-          radius: Constants.smallDotRadius
-        )
-      }
-    }
-    if let bottomLeftEyebrowContour = face.contour(ofType: .leftEyebrowBottom) {
-      for point in bottomLeftEyebrowContour.points {
-        let transformedPoint = pointFrom(point).applying(transform);
-        UIUtilities.addCircle(
-          atPoint: transformedPoint,
-          to: annotationOverlayView,
-          color: UIColor.yellow,
-          radius: Constants.smallDotRadius
-        )
-      }
-    }
-    if let topRightEyebrowContour = face.contour(ofType: .rightEyebrowTop) {
-      for point in topRightEyebrowContour.points {
-        let transformedPoint = pointFrom(point).applying(transform);
-        UIUtilities.addCircle(
-          atPoint: transformedPoint,
-          to: annotationOverlayView,
-          color: UIColor.yellow,
-          radius: Constants.smallDotRadius
-        )
-      }
-    }
-    if let bottomRightEyebrowContour = face.contour(ofType: .rightEyebrowBottom) {
-      for point in bottomRightEyebrowContour.points {
-        let transformedPoint = pointFrom(point).applying(transform);
-        UIUtilities.addCircle(
-          atPoint: transformedPoint,
-          to: annotationOverlayView,
-          color: UIColor.yellow,
-          radius: Constants.smallDotRadius
-        )
-      }
-    }
-
-    // Eyes
-    if let leftEyeContour = face.contour(ofType: .leftEye) {
-      for point in leftEyeContour.points {
-        let transformedPoint = pointFrom(point).applying(transform);
-        UIUtilities.addCircle(
-          atPoint: transformedPoint,
-          to: annotationOverlayView,
-          color: UIColor.yellow,
-          radius: Constants.smallDotRadius                )
-      }
-    }
-    if let rightEyeContour = face.contour(ofType: .rightEye) {
-      for point in rightEyeContour.points {
-        let transformedPoint = pointFrom(point).applying(transform);
-        UIUtilities.addCircle(
-          atPoint: transformedPoint,
-          to: annotationOverlayView,
-          color: UIColor.yellow,
-          radius: Constants.smallDotRadius
-        )
-      }
-    }
-
-    // Lips
-    if let topUpperLipContour = face.contour(ofType: .upperLipTop) {
-      for point in topUpperLipContour.points {
-        let transformedPoint = pointFrom(point).applying(transform);
-        UIUtilities.addCircle(
-          atPoint: transformedPoint,
-          to: annotationOverlayView,
-          color: UIColor.yellow,
-          radius: Constants.smallDotRadius
-        )
-      }
-    }
-    if let bottomUpperLipContour = face.contour(ofType: .upperLipBottom) {
-      for point in bottomUpperLipContour.points {
-        let transformedPoint = pointFrom(point).applying(transform);
-        UIUtilities.addCircle(
-          atPoint: transformedPoint,
-          to: annotationOverlayView,
-          color: UIColor.yellow,
-          radius: Constants.smallDotRadius
-        )
-      }
-    }
-    if let topLowerLipContour = face.contour(ofType: .lowerLipTop) {
-      for point in topLowerLipContour.points {
-        let transformedPoint = pointFrom(point).applying(transform);
-        UIUtilities.addCircle(
-          atPoint: transformedPoint,
-          to: annotationOverlayView,
-          color: UIColor.yellow,
-          radius: Constants.smallDotRadius
-        )
-      }
-    }
-    if let bottomLowerLipContour = face.contour(ofType: .lowerLipBottom) {
-      for point in bottomLowerLipContour.points {
-        let transformedPoint = pointFrom(point).applying(transform);
-        UIUtilities.addCircle(
-          atPoint: transformedPoint,
-          to: annotationOverlayView,
-          color: UIColor.yellow,
-          radius: Constants.smallDotRadius
-        )
-      }
-    }
-
-    // Nose
-    if let noseBridgeContour = face.contour(ofType: .noseBridge) {
-      for point in noseBridgeContour.points {
-        let transformedPoint = pointFrom(point).applying(transform);
-        UIUtilities.addCircle(
-          atPoint: transformedPoint,
-          to: annotationOverlayView,
-          color: UIColor.yellow,
-          radius: Constants.smallDotRadius
-        )
-      }
-    }
-    if let noseBottomContour = face.contour(ofType: .noseBottom) {
-      for point in noseBottomContour.points {
-        let transformedPoint = pointFrom(point).applying(transform);
-        UIUtilities.addCircle(
-          atPoint: transformedPoint,
-          to: annotationOverlayView,
-          color: UIColor.yellow,
-          radius: Constants.smallDotRadius
-        )
-      }
-    }
-  }
-
-  private func addLandmarks(forFace face: VisionFace, transform: CGAffineTransform) {
-    // Mouth
-    if let bottomMouthLandmark = face.landmark(ofType: .mouthBottom) {
-      let point = pointFrom(bottomMouthLandmark.position)
-      let transformedPoint = point.applying(transform)
-      UIUtilities.addCircle(
-        atPoint: transformedPoint,
-        to: annotationOverlayView,
-        color: UIColor.red,
-        radius: Constants.largeDotRadius
-      )
-    }
-    if let leftMouthLandmark = face.landmark(ofType: .mouthLeft) {
-      let point = pointFrom(leftMouthLandmark.position)
-      let transformedPoint = point.applying(transform)
-      UIUtilities.addCircle(
-        atPoint: transformedPoint,
-        to: annotationOverlayView,
-        color: UIColor.red,
-        radius: Constants.largeDotRadius
-      )
-    }
-    if let rightMouthLandmark = face.landmark(ofType: .mouthRight) {
-      let point = pointFrom(rightMouthLandmark.position)
-      let transformedPoint = point.applying(transform)
-      UIUtilities.addCircle(
-        atPoint: transformedPoint,
-        to: annotationOverlayView,
-        color: UIColor.red,
-        radius: Constants.largeDotRadius
-      )
-    }
-
-    // Nose
-    if let noseBaseLandmark = face.landmark(ofType: .noseBase) {
-      let point = pointFrom(noseBaseLandmark.position)
-      let transformedPoint = point.applying(transform)
-      UIUtilities.addCircle(
-        atPoint: transformedPoint,
-        to: annotationOverlayView,
-        color: UIColor.yellow,
-        radius: Constants.largeDotRadius
-      )
-    }
-
-    // Eyes
-    if let leftEyeLandmark = face.landmark(ofType: .leftEye) {
-      let point = pointFrom(leftEyeLandmark.position)
-      let transformedPoint = point.applying(transform)
-      UIUtilities.addCircle(
-        atPoint: transformedPoint,
-        to: annotationOverlayView,
-        color: UIColor.cyan,
-        radius: Constants.largeDotRadius
-      )
-    }
-    if let rightEyeLandmark = face.landmark(ofType: .rightEye) {
-      let point = pointFrom(rightEyeLandmark.position)
-      let transformedPoint = point.applying(transform)
-      UIUtilities.addCircle(
-        atPoint: transformedPoint,
-        to: annotationOverlayView,
-        color: UIColor.cyan,
-        radius: Constants.largeDotRadius
-      )
-    }
-
-    // Ears
-    if let leftEarLandmark = face.landmark(ofType: .leftEar) {
-      let point = pointFrom(leftEarLandmark.position)
-      let transformedPoint = point.applying(transform)
-      UIUtilities.addCircle(
-        atPoint: transformedPoint,
-        to: annotationOverlayView,
-        color: UIColor.purple,
-        radius: Constants.largeDotRadius
-      )
-    }
-    if let rightEarLandmark = face.landmark(ofType: .rightEar) {
-      let point = pointFrom(rightEarLandmark.position)
-      let transformedPoint = point.applying(transform)
-      UIUtilities.addCircle(
-        atPoint: transformedPoint,
-        to: annotationOverlayView,
-        color: UIColor.purple,
-        radius: Constants.largeDotRadius
-      )
-    }
-
-    // Cheeks
-    if let leftCheekLandmark = face.landmark(ofType: .leftCheek) {
-      let point = pointFrom(leftCheekLandmark.position)
-      let transformedPoint = point.applying(transform)
-      UIUtilities.addCircle(
-        atPoint: transformedPoint,
-        to: annotationOverlayView,
-        color: UIColor.orange,
-        radius: Constants.largeDotRadius
-      )
-    }
-    if let rightCheekLandmark = face.landmark(ofType: .rightCheek) {
-      let point = pointFrom(rightCheekLandmark.position)
-      let transformedPoint = point.applying(transform)
-      UIUtilities.addCircle(
-        atPoint: transformedPoint,
-        to: annotationOverlayView,
-        color: UIColor.orange,
-        radius: Constants.largeDotRadius
-      )
-    }
   }
 
   private func process(_ visionImage: VisionImage, with textRecognizer: VisionTextRecognizer?) {
@@ -754,62 +466,7 @@ extension ViewController {
 
 // MARK: - Enums
 
-private enum DetectorPickerRow: Int {
-  case detectFaceOnDevice = 0,
-  detectTextOnDevice,
-  detectBarcodeOnDevice,
-  detectImageLabelsOnDevice,
-  detectImageLabelsAutoMLOnDevice,
-  detectObjectsProminentNoClassifier,
-  detectObjectsProminentWithClassifier,
-  detectObjectsMultipleNoClassifier,
-  detectObjectsMultipleWithClassifier,
-  detectTextInCloudSparse,
-  detectTextInCloudDense,
-  detectDocumentTextInCloud,
-  detectImageLabelsInCloud,
-  detectLandmarkInCloud
-
-  static let rowsCount = 14
-  static let componentsCount = 1
-
-  public var description: String {
-    switch self {
-    case .detectFaceOnDevice:
-      return "Face On-Device"
-    case .detectTextOnDevice:
-      return "Text On-Device"
-    case .detectBarcodeOnDevice:
-      return "Barcode On-Device"
-    case .detectImageLabelsOnDevice:
-      return "Image Labeling On-Device"
-    case .detectImageLabelsAutoMLOnDevice:
-      return "Image Labeling AutoML On-Device"
-    case .detectObjectsProminentNoClassifier:
-      return "ODT, prominent, only tracking"
-    case .detectObjectsProminentWithClassifier:
-      return "ODT, prominent, with classification"
-    case .detectObjectsMultipleNoClassifier:
-      return "ODT, multiple, only tracking"
-    case .detectObjectsMultipleWithClassifier:
-      return "ODT, multiple, with classification"
-    case .detectTextInCloudSparse:
-      return "Text in Cloud (Sparse)"
-    case .detectTextInCloudDense:
-      return "Text in Cloud (Dense)"
-    case .detectDocumentTextInCloud:
-      return "Document Text in Cloud"
-    case .detectImageLabelsInCloud:
-      return "Image Labeling in Cloud"
-    case .detectLandmarkInCloud:
-      return "Landmarks in Cloud"
-    }
-  }
-}
-
 private enum Constants {
-  /*static let images = ["grace_hopper.jpg", "barcode_128.png", "qr_code.jpg", "beach.jpg",
-                       "image_has_text.jpg", "liberty.jpg"]*/
   static let modelExtension = "tflite"
   static let localModelName = "mobilenet"
   static let quantizedModelFilename = "mobilenet_quant_v1_224"
