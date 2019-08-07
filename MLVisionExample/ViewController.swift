@@ -51,7 +51,7 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
 
   // MARK: - IBOutlets
 
-  @IBOutlet fileprivate weak var detectorPicker: UIPickerView!
+  // @IBOutlet fileprivate weak var detectorPicker: UIPickerView!
   @IBOutlet fileprivate weak var imageView: UIImageView!
   @IBOutlet fileprivate weak var photoCameraButton: UIBarButtonItem!
   @IBOutlet fileprivate weak var videoCameraButton: UIBarButtonItem!
@@ -63,7 +63,7 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    imageView.image = UIImage(named: Constants.images[currentImage])
+    // imageView.image = UIImage(named: Constants.images[currentImage])
     imageView.addSubview(annotationOverlayView)
     NSLayoutConstraint.activate([
       annotationOverlayView.topAnchor.constraint(equalTo: imageView.topAnchor),
@@ -75,8 +75,8 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
     imagePicker.delegate = self
     imagePicker.sourceType = .photoLibrary
 
-    detectorPicker.delegate = self
-    detectorPicker.dataSource = self
+    /* detectorPicker.delegate = self
+    detectorPicker.dataSource = self */
 
     let isCameraAvailable = UIImagePickerController.isCameraDeviceAvailable(.front) ||
       UIImagePickerController.isCameraDeviceAvailable(.rear)
@@ -90,8 +90,8 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
       photoCameraButton.isEnabled = false
     }
 
-    let defaultRow = (DetectorPickerRow.rowsCount / 2) - 1
-    detectorPicker.selectRow(defaultRow, inComponent: 0, animated: false)
+    /* let defaultRow = (DetectorPickerRow.rowsCount / 2) - 1
+    detectorPicker.selectRow(defaultRow, inComponent: 0, animated: false) */
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -110,47 +110,8 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
 
   @IBAction func detect(_ sender: Any) {
     clearResults()
-    let row = detectorPicker.selectedRow(inComponent: 0)
-    if let rowIndex = DetectorPickerRow(rawValue: row) {
-      switch rowIndex {
-      case .detectFaceOnDevice:
-        detectFaces(image: imageView.image)
-      case .detectTextOnDevice:
-        detectTextOnDevice(image: imageView.image)
-      case .detectBarcodeOnDevice:
-        detectBarcodes(image: imageView.image)
-      case .detectImageLabelsOnDevice:
-        detectLabels(image: imageView.image)
-      case .detectImageLabelsAutoMLOnDevice:
-        detectImageLabelsAutoML(image: imageView.image)
-      case .detectObjectsProminentNoClassifier, .detectObjectsProminentWithClassifier,
-           .detectObjectsMultipleNoClassifier, .detectObjectsMultipleWithClassifier:
-        let shouldEnableClassification = (rowIndex == .detectObjectsProminentWithClassifier) ||
-          (rowIndex == .detectObjectsMultipleWithClassifier)
-        let shouldEnableMultipleObjects = (rowIndex == .detectObjectsMultipleWithClassifier) ||
-          (rowIndex == .detectObjectsMultipleNoClassifier)
-        let options = VisionObjectDetectorOptions()
-        options.shouldEnableClassification = shouldEnableClassification
-        options.shouldEnableMultipleObjects = shouldEnableMultipleObjects
-        options.detectorMode = .singleImage
-        detectObjectsOnDevice(in: imageView.image, options: options)
-      case .detectTextInCloudSparse:
-        detectTextInCloud(image: imageView.image)
-      case .detectTextInCloudDense:
-        let options = VisionCloudTextRecognizerOptions()
-        options.modelType = .dense
-        detectTextInCloud(image: imageView.image, options: options)
-      case .detectDocumentTextInCloud:
-        detectDocumentTextInCloud(image: imageView.image)
-      case .detectImageLabelsInCloud:
-        detectCloudLabels(image: imageView.image)
-      case .detectLandmarkInCloud:
-        detectCloudLandmarks(image: imageView.image)
-      }
-    } else {
-      print("No such item at row \(row) in detector picker.")
+    detectTextOnDevice(image: imageView.image)
     }
-  }
 
   @IBAction func openPhotoLibrary(_ sender: Any) {
     imagePicker.sourceType = .photoLibrary
@@ -167,11 +128,11 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
     present(imagePicker, animated: true)
   }
     
-  @IBAction func changeImage(_ sender: Any) {
+  /* @IBAction func changeImage(_ sender: Any) {
     clearResults()
     currentImage = (currentImage + 1) % Constants.images.count
     imageView.image = UIImage(named: Constants.images[currentImage])
-  }
+  } */
 
   // MARK: - Private
 
@@ -543,6 +504,8 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
           to: self.annotationOverlayView,
           color: UIColor.purple
         )
+        
+        print("block of text below:\n", block.text)
 
         // Lines.
         for line in block.lines {
@@ -552,7 +515,7 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
             to: self.annotationOverlayView,
             color: UIColor.orange
           )
-
+          /*
           // Elements.
           for element in line.elements {
             let transformedRect = element.frame.applying(self.transformMatrix())
@@ -565,7 +528,7 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
             label.text = element.text
             label.adjustsFontSizeToFitWidth = true
             self.annotationOverlayView.addSubview(label)
-          }
+          } */
         }
       }
       self.resultsText += "\(text.text)\n"
@@ -714,7 +677,7 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
   }
 }
 
-extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate {
+/* extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate {
 
   // MARK: - UIPickerViewDataSource
 
@@ -739,7 +702,7 @@ extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate {
   func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
     clearResults()
   }
-}
+} */
 
 // MARK: - UIImagePickerControllerDelegate
 
@@ -765,230 +728,6 @@ extension ViewController {
 
   // MARK: - Vision On-Device Detection
 
-  /// Detects faces on the specified image and draws a frame around the detected faces using
-  /// On-Device face API.
-  ///
-  /// - Parameter image: The image.
-  func detectFaces(image: UIImage?) {
-    guard let image = image else { return }
-
-    // Create a face detector with options.
-    // [START config_face]
-    let options = VisionFaceDetectorOptions()
-    options.landmarkMode = .all
-    options.classificationMode = .all
-    options.performanceMode = .accurate
-    options.contourMode = .all
-    // [END config_face]
-
-    // [START init_face]
-    let faceDetector = vision.faceDetector(options: options)
-    // [END init_face]
-
-    // Define the metadata for the image.
-    let imageMetadata = VisionImageMetadata()
-    imageMetadata.orientation = UIUtilities.visionImageOrientation(from: image.imageOrientation)
-
-    // Initialize a VisionImage object with the given UIImage.
-    let visionImage = VisionImage(image: image)
-    visionImage.metadata = imageMetadata
-
-    // [START detect_faces]
-    faceDetector.process(visionImage) { faces, error in
-      guard error == nil, let faces = faces, !faces.isEmpty else {
-        // [START_EXCLUDE]
-        let errorString = error?.localizedDescription ?? Constants.detectionNoResultsMessage
-        self.resultsText = "On-Device face detection failed with error: \(errorString)"
-        self.showResults()
-        // [END_EXCLUDE]
-        return
-      }
-
-      // Faces detected
-      // [START_EXCLUDE]
-      faces.forEach { face in
-        let transform = self.transformMatrix()
-        let transformedRect = face.frame.applying(transform)
-        UIUtilities.addRectangle(
-          transformedRect,
-          to: self.annotationOverlayView,
-          color: UIColor.green
-        )
-        self.addLandmarks(forFace: face, transform: transform)
-        self.addContours(forFace: face, transform: transform)
-      }
-      self.resultsText = faces.map { face in
-        let headEulerAngleY = face.hasHeadEulerAngleY ? face.headEulerAngleY.description : "NA"
-        let headEulerAngleZ = face.hasHeadEulerAngleZ ? face.headEulerAngleZ.description : "NA"
-        let leftEyeOpenProbability = face.hasLeftEyeOpenProbability ? face.leftEyeOpenProbability.description : "NA"
-        let rightEyeOpenProbability = face.hasRightEyeOpenProbability ? face.rightEyeOpenProbability.description : "NA"
-        let smilingProbability = face.hasSmilingProbability ? face.smilingProbability.description : "NA"
-        let output = """
-                     Frame: \(face.frame)
-                     Head Euler Angle Y: \(headEulerAngleY)
-                     Head Euler Angle Z: \(headEulerAngleZ)
-                     Left Eye Open Probability: \(leftEyeOpenProbability)
-                     Right Eye Open Probability: \(rightEyeOpenProbability)
-                     Smiling Probability: \(smilingProbability)
-                     """
-        return "\(output)"
-        }.joined(separator: "\n")
-      self.showResults()
-      // [END_EXCLUDE]
-    }
-    // [END detect_faces]
-  }
-
-  /// Detects barcodes on the specified image and draws a frame around the detected barcodes using
-  /// On-Device barcode API.
-  ///
-  /// - Parameter image: The image.
-  func detectBarcodes(image: UIImage?) {
-    guard let image = image else { return }
-
-    // Define the options for a barcode detector.
-    // [START config_barcode]
-    let format = VisionBarcodeFormat.all
-    let barcodeOptions = VisionBarcodeDetectorOptions(formats: format)
-    // [END config_barcode]
-
-    // Create a barcode detector.
-    // [START init_barcode]
-    let barcodeDetector = vision.barcodeDetector(options: barcodeOptions)
-    // [END init_barcode]
-
-    // Define the metadata for the image.
-    let imageMetadata = VisionImageMetadata()
-    imageMetadata.orientation = UIUtilities.visionImageOrientation(from: image.imageOrientation)
-
-    // Initialize a VisionImage object with the given UIImage.
-    let visionImage = VisionImage(image: image)
-    visionImage.metadata = imageMetadata
-
-    // [START detect_barcodes]
-    barcodeDetector.detect(in: visionImage) { features, error in
-      guard error == nil, let features = features, !features.isEmpty else {
-        // [START_EXCLUDE]
-        let errorString = error?.localizedDescription ?? Constants.detectionNoResultsMessage
-        self.resultsText = "On-Device barcode detection failed with error: \(errorString)"
-        self.showResults()
-        // [END_EXCLUDE]
-        return
-      }
-
-      // [START_EXCLUDE]
-      features.forEach { feature in
-        let transformedRect = feature.frame.applying(self.transformMatrix())
-        UIUtilities.addRectangle(
-          transformedRect,
-          to: self.annotationOverlayView,
-          color: UIColor.green
-        )
-      }
-      self.resultsText = features.map { feature in
-        return "DisplayValue: \(feature.displayValue ?? ""), RawValue: " +
-        "\(feature.rawValue ?? ""), Frame: \(feature.frame)"
-        }.joined(separator: "\n")
-      self.showResults()
-      // [END_EXCLUDE]
-    }
-    // [END detect_barcodes]
-  }
-
-  /// Detects labels on the specified image using On-Device label API.
-  ///
-  /// - Parameter image: The image.
-  func detectLabels(image: UIImage?) {
-    guard let image = image else { return }
-
-    // [START config_label]
-    let options = VisionOnDeviceImageLabelerOptions()
-    options.confidenceThreshold = Constants.labelConfidenceThreshold
-    // [END config_label]
-
-    // [START init_label]
-    let onDeviceLabeler = vision.onDeviceImageLabeler(options: options)
-    // [END init_label]
-
-    // Define the metadata for the image.
-    let imageMetadata = VisionImageMetadata()
-    imageMetadata.orientation = UIUtilities.visionImageOrientation(from: image.imageOrientation)
-
-    // Initialize a VisionImage object with the given UIImage.
-    let visionImage = VisionImage(image: image)
-    visionImage.metadata = imageMetadata
-
-    // [START detect_label]
-    onDeviceLabeler.process(visionImage) { labels, error in
-      guard error == nil, let labels = labels, !labels.isEmpty else {
-        // [START_EXCLUDE]
-        let errorString = error?.localizedDescription ?? Constants.detectionNoResultsMessage
-        self.resultsText = "On-Device label detection failed with error: \(errorString)"
-        self.showResults()
-        // [END_EXCLUDE]
-        return
-      }
-
-      // [START_EXCLUDE]
-      self.resultsText = labels.map { label -> String in
-        return "Label: \(label.text), " +
-          "Confidence: \(label.confidence ?? 0), " +
-          "EntityID: \(label.entityID ?? "")"
-        }.joined(separator: "\n")
-      self.showResults()
-      // [END_EXCLUDE]
-    }
-    // [END detect_label]
-  }
-
-  /// Detects labels on the specified image using On-Device AutoML Image Labeling API.
-  ///
-  /// - Parameter image: The image.
-  func detectImageLabelsAutoML(image: UIImage?) {
-    guard let image = image else { return }
-    registerAutoMLModelsIfNeeded()
-
-    // [START config_automl_label]
-    let options = VisionOnDeviceAutoMLImageLabelerOptions(
-      remoteModelName: Constants.remoteAutoMLModelName,
-      localModelName: Constants.localAutoMLModelName
-    )
-    options.confidenceThreshold = Constants.labelConfidenceThreshold
-    // [END config_automl_label]
-
-    // [START init_automl_label]
-    let autoMLOnDeviceLabeler = vision.onDeviceAutoMLImageLabeler(options: options)
-    // [END init_automl_label]
-
-    // Define the metadata for the image.
-    let imageMetadata = VisionImageMetadata()
-    imageMetadata.orientation = UIUtilities.visionImageOrientation(from: image.imageOrientation)
-
-    // Initialize a VisionImage object with the given UIImage.
-    let visionImage = VisionImage(image: image)
-    visionImage.metadata = imageMetadata
-
-    // [START detect_automl_label]
-    autoMLOnDeviceLabeler.process(visionImage) { labels, error in
-      guard error == nil, let labels = labels, !labels.isEmpty else {
-        // [START_EXCLUDE]
-        let errorString = error?.localizedDescription ?? Constants.detectionNoResultsMessage
-        self.resultsText = "On-Device AutoML label detection failed with error: \(errorString)"
-        self.showResults()
-        // [END_EXCLUDE]
-        return
-      }
-
-      // [START_EXCLUDE]
-      self.resultsText = labels.map { label -> String in
-        return "Label: \(label.text), Confidence: \(label.confidence ?? 0)"
-        }.joined(separator: "\n")
-      self.showResults()
-      // [END_EXCLUDE]
-    }
-    // [END detect_automl_label]
-  }
-
   /// Detects text on the specified image and draws a frame around the recognized text using the
   /// On-Device text recognizer.
   ///
@@ -1010,229 +749,6 @@ extension ViewController {
 
     self.resultsText += "Running On-Device Text Recognition...\n"
     process(visionImage, with: onDeviceTextRecognizer)
-  }
-
-  // MARK: - Vision Cloud Detection
-
-  /// Detects text on the specified image and draws a frame around the recognized text using the
-  /// Cloud text recognizer.
-  ///
-  /// - Parameter image: The image.
-  func detectTextInCloud(image: UIImage?, options: VisionCloudTextRecognizerOptions? = nil) {
-    guard let image = image else { return }
-
-    // Define the metadata for the image.
-    let imageMetadata = VisionImageMetadata()
-    imageMetadata.orientation = UIUtilities.visionImageOrientation(from: image.imageOrientation)
-
-    // Initialize a VisionImage object with the given UIImage.
-    let visionImage = VisionImage(image: image)
-    visionImage.metadata = imageMetadata
-
-    // [START init_text_cloud]
-    var cloudTextRecognizer: VisionTextRecognizer?
-    var modelTypeString = Constants.sparseTextModelName
-    if let options = options {
-      modelTypeString = (options.modelType == .dense) ?
-        Constants.denseTextModelName :
-      modelTypeString
-      cloudTextRecognizer = vision.cloudTextRecognizer(options: options)
-    } else {
-      cloudTextRecognizer = vision.cloudTextRecognizer()
-    }
-    // [END init_text_cloud]
-
-    self.resultsText += "Running Cloud Text Recognition (\(modelTypeString) model)...\n"
-    process(visionImage, with: cloudTextRecognizer)
-  }
-
-  /// Detects document text on the specified image and draws a frame around the recognized text
-  /// using the Cloud document text recognizer.
-  ///
-  /// - Parameter image: The image.
-  func detectDocumentTextInCloud(image: UIImage?) {
-    guard let image = image else { return }
-
-    // Define the metadata for the image.
-    let imageMetadata = VisionImageMetadata()
-    imageMetadata.orientation = UIUtilities.visionImageOrientation(from: image.imageOrientation)
-
-    // Initialize a VisionImage object with the given UIImage.
-    let visionImage = VisionImage(image: image)
-    visionImage.metadata = imageMetadata
-
-    // [START init_document_text_cloud]
-    let cloudDocumentTextRecognizer = vision.cloudDocumentTextRecognizer()
-    // [END init_document_text_cloud]
-
-    self.resultsText += "Running Cloud Document Text Recognition...\n"
-    process(visionImage, with: cloudDocumentTextRecognizer)
-  }
-
-  /// Detects landmarks on the specified image and draws a frame around the detected landmarks using
-  /// cloud landmark API.
-  ///
-  /// - Parameter image: The image.
-  func detectCloudLandmarks(image: UIImage?) {
-    guard let image = image else { return }
-
-    // Define the metadata for the image.
-    let imageMetadata = VisionImageMetadata()
-    imageMetadata.orientation = UIUtilities.visionImageOrientation(from: image.imageOrientation)
-
-    // Initialize a VisionImage object with the given UIImage.
-    let visionImage = VisionImage(image: image)
-    visionImage.metadata = imageMetadata
-
-    // Create a landmark detector.
-    // [START config_landmark_cloud]
-    let options = VisionCloudDetectorOptions()
-    options.modelType = .latest
-    options.maxResults = 20
-    // [END config_landmark_cloud]
-
-    // [START init_landmark_cloud]
-    let cloudDetector = vision.cloudLandmarkDetector(options: options)
-    // Or, to use the default settings:
-    // let cloudDetector = vision.cloudLandmarkDetector()
-    // [END init_landmark_cloud]
-
-    // [START detect_landmarks_cloud]
-    cloudDetector.detect(in: visionImage) { landmarks, error in
-      guard error == nil, let landmarks = landmarks, !landmarks.isEmpty else {
-        // [START_EXCLUDE]
-        let errorString = error?.localizedDescription ?? Constants.detectionNoResultsMessage
-        self.resultsText = "Cloud landmark detection failed with error: \(errorString)"
-        self.showResults()
-        // [END_EXCLUDE]
-        return
-      }
-
-      // Recognized landmarks
-      // [START_EXCLUDE]
-      landmarks.forEach { landmark in
-        let transformedRect = landmark.frame.applying(self.transformMatrix())
-        UIUtilities.addRectangle(
-          transformedRect,
-          to: self.annotationOverlayView,
-          color: UIColor.green
-        )
-      }
-      self.resultsText = landmarks.map { landmark -> String in
-        return "Landmark: \(String(describing: landmark.landmark ?? "")), " +
-          "Confidence: \(String(describing: landmark.confidence ?? 0) ), " +
-          "EntityID: \(String(describing: landmark.entityId ?? "") ), " +
-        "Frame: \(landmark.frame)"
-      }.joined(separator: "\n")
-      self.showResults()
-      // [END_EXCLUDE]
-    }
-    // [END detect_landmarks_cloud]
-  }
-
-  /// Detects labels on the specified image using cloud label API.
-  ///
-  /// - Parameter image: The image.
-  func detectCloudLabels(image: UIImage?) {
-    guard let image = image else { return }
-
-    // [START init_label_cloud]
-    let cloudLabeler = vision.cloudImageLabeler()
-    // Or, to change the default settings:
-    // let cloudLabeler = vision.cloudImageLabeler(options: options)
-    // [END init_label_cloud]
-
-    // Define the metadata for the image.
-    let imageMetadata = VisionImageMetadata()
-    imageMetadata.orientation = UIUtilities.visionImageOrientation(from: image.imageOrientation)
-
-    // Initialize a VisionImage object with the given UIImage.
-    let visionImage = VisionImage(image: image)
-    visionImage.metadata = imageMetadata
-
-    // [START detect_label_cloud]
-    cloudLabeler.process(visionImage) { labels, error in
-      guard error == nil, let labels = labels, !labels.isEmpty else {
-        // [START_EXCLUDE]
-        let errorString = error?.localizedDescription ?? Constants.detectionNoResultsMessage
-        self.resultsText = "Cloud label detection failed with error: \(errorString)"
-        self.showResults()
-        // [END_EXCLUDE]
-        return
-      }
-
-      // Labeled image
-      // START_EXCLUDE
-      self.resultsText = labels.map { label -> String in
-        "Label: \(label.text), " +
-        "Confidence: \(label.confidence ?? 0), " +
-        "EntityID: \(label.entityID ?? "")"
-        }.joined(separator: "\n")
-      self.showResults()
-      // [END_EXCLUDE]
-    }
-    // [END detect_label_cloud]
-  }
-
-
-  /// Detects objects on the specified image and draws a frame around them.
-  ///
-  /// - Parameter image: The image.
-  /// - Parameter options: The options for object detector.
-  private func detectObjectsOnDevice(in image: UIImage?, options: VisionObjectDetectorOptions) {
-    guard let image = image else { return }
-
-    // Define the metadata for the image.
-    let imageMetadata = VisionImageMetadata()
-    imageMetadata.orientation = UIUtilities.visionImageOrientation(from: image.imageOrientation)
-
-    // Initialize a VisionImage object with the given UIImage.
-    let visionImage = VisionImage(image: image)
-    visionImage.metadata = imageMetadata
-
-    // [START init_object_detector]
-    // Create an objects detector with options.
-    let detector = vision.objectDetector(options: options)
-    // [END init_object_detector]
-
-    // [START detect_object]
-    detector.process(visionImage) { objects, error in
-      guard error == nil else {
-        // [START_EXCLUDE]
-        let errorString = error?.localizedDescription ?? Constants.detectionNoResultsMessage
-        self.resultsText = "Object detection failed with error: \(errorString)"
-        self.showResults()
-        // [END_EXCLUDE]
-        return
-      }
-      guard let objects = objects, !objects.isEmpty else {
-        // [START_EXCLUDE]
-        self.resultsText = "On-Device object detector returned no results."
-        self.showResults()
-        // [END_EXCLUDE]
-        return
-      }
-
-      objects.forEach { object in
-        // [START_EXCLUDE]
-        let transform = self.transformMatrix()
-        let transformedRect = object.frame.applying(transform)
-        UIUtilities.addRectangle(
-          transformedRect,
-          to: self.annotationOverlayView,
-          color: .green
-        )
-        // [END_EXCLUDE]
-      }
-
-       // [START_EXCLUDE]
-      self.resultsText = objects.map { object in
-        return "Frame: \(object.frame), ID: \(object.trackingID ?? 0)"
-        }.joined(separator: "\n")
-      self.showResults()
-      // [END_EXCLUDE]
-    }
-    // [END detect_object]
   }
 }
 
@@ -1292,8 +808,8 @@ private enum DetectorPickerRow: Int {
 }
 
 private enum Constants {
-  static let images = ["grace_hopper.jpg", "barcode_128.png", "qr_code.jpg", "beach.jpg",
-                       "image_has_text.jpg", "liberty.jpg"]
+  /*static let images = ["grace_hopper.jpg", "barcode_128.png", "qr_code.jpg", "beach.jpg",
+                       "image_has_text.jpg", "liberty.jpg"]*/
   static let modelExtension = "tflite"
   static let localModelName = "mobilenet"
   static let quantizedModelFilename = "mobilenet_quant_v1_224"
