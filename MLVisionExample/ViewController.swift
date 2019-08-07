@@ -19,7 +19,7 @@ import Firebase
 
 /// Main view controller class.
 @objc(ViewController)
-class ViewController:  UIViewController, UINavigationControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
+class ViewController:  UIViewController, UINavigationControllerDelegate {
     
   /// Firebase vision instance.
   // [START init_vision]
@@ -55,29 +55,9 @@ class ViewController:  UIViewController, UINavigationControllerDelegate, UIPicke
   @IBOutlet fileprivate weak var photoCameraButton: UIBarButtonItem!
   @IBOutlet weak var detectButton: UIBarButtonItem!
   @IBOutlet var downloadProgressView: UIProgressView!
-
+    
   let numsOfPeople = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
   var numOfPeople = 0
-    
-  func numberOfComponents(in numOfPeoplePicker: UIPickerView) -> Int
-  {
-      return 1
-  }
-    
-  func pickerView(_ numOfPeoplePicker: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
-  {
-      return String(numsOfPeople[row])
-  }
-    
-  func pickerView(_ numOfPeoplePicker: UIPickerView, numberOfRowsInComponent component: Int) -> Int
-  {
-      return numsOfPeople.count
-  }
-    
-  func pickerView(_ numOfPeoplePicker: UIPickerView, didSelectRow row: Int, inComponent component: Int)
-  {
-      numOfPeople = numsOfPeople[row]
-  }
 
   // MARK: - UIViewController
 
@@ -157,6 +137,7 @@ class ViewController:  UIViewController, UINavigationControllerDelegate, UIPicke
   }
 
   private func showResults() {
+    // this is executed when detect is clicked
     let resultsAlertController = UIAlertController(
       title: "Detection Results",
       message: nil,
@@ -425,32 +406,28 @@ class ViewController:  UIViewController, UINavigationControllerDelegate, UIPicke
   }
 }
 
-/* extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate {
-
-  // MARK: - UIPickerViewDataSource
-
-  func numberOfComponents(in pickerView: UIPickerView) -> Int {
-    return DetectorPickerRow.componentsCount
+extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate {
+    
+  func numberOfComponents(in numOfPeoplePicker: UIPickerView) -> Int
+  {
+      return 1
   }
-
-  func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-    return DetectorPickerRow.rowsCount
+    
+  func pickerView(_ numOfPeoplePicker: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
+  {
+      return String(numsOfPeople[row])
   }
-
-  // MARK: - UIPickerViewDelegate
-
-  func pickerView(
-    _ pickerView: UIPickerView,
-    titleForRow row: Int,
-    forComponent component: Int
-    ) -> String? {
-    return DetectorPickerRow(rawValue: row)?.description
+    
+  func pickerView(_ numOfPeoplePicker: UIPickerView, numberOfRowsInComponent component: Int) -> Int
+  {
+      return numsOfPeople.count
   }
-
-  func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-    clearResults()
+    
+  func pickerView(_ numOfPeoplePicker: UIPickerView, didSelectRow row: Int, inComponent component: Int)
+  {
+      numOfPeople = numsOfPeople[row]
   }
-} */
+}
 
 // MARK: - UIImagePickerControllerDelegate
 
@@ -480,6 +457,7 @@ extension ViewController {
   /// On-Device text recognizer.
   ///
   /// - Parameter image: The image.
+  // ran in detect function
   func detectTextOnDevice(image: UIImage?) {
     guard let image = image else { return }
 
@@ -496,6 +474,7 @@ extension ViewController {
     visionImage.metadata = imageMetadata
 
     self.resultsText += "Running On-Device Text Recognition...\n"
+    // this will run and post the popup with resultsText pasted
     process(visionImage, with: onDeviceTextRecognizer)
   }
 }
