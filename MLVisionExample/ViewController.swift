@@ -184,6 +184,7 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
         if self.imageView.image != nil {
           self.numOfPeopleLabel.isHidden = true
           self.numOfPeoplePicker.isHidden = true
+          self.counterNoP.text = "Number of People: \(self.numOfPeople)"
         }
       }
     }
@@ -427,7 +428,6 @@ extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate {
   func pickerView(_ numOfPeoplePicker: UIPickerView, didSelectRow row: Int, inComponent component: Int)
   {
       numOfPeople = numsOfPeople[row]
-      counterNoP.text = "Number of People: \(numOfPeople)"
   }
 }
 
