@@ -19,7 +19,8 @@ import Firebase
 
 /// Main view controller class.
 @objc(ViewController)
-class ViewController:  UIViewController, UINavigationControllerDelegate {
+class ViewController:  UIViewController, UINavigationControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
+    
   /// Firebase vision instance.
   // [START init_vision]
   lazy var vision = Vision.vision()
@@ -48,15 +49,43 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
   // MARK: - IBOutlets
 
   // @IBOutlet fileprivate weak var detectorPicker: UIPickerView!
+  @IBOutlet weak var numOfPeopleLabel: UILabel!
+  @IBOutlet weak var numOfPeoplePicker: UIPickerView!
   @IBOutlet fileprivate weak var imageView: UIImageView!
   @IBOutlet fileprivate weak var photoCameraButton: UIBarButtonItem!
   @IBOutlet weak var detectButton: UIBarButtonItem!
   @IBOutlet var downloadProgressView: UIProgressView!
 
+  let numsOfPeople = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+  var numOfPeople = 0
+    
+  func numberOfComponents(in numOfPeoplePicker: UIPickerView) -> Int
+  {
+      return 1
+  }
+    
+  func pickerView(_ numOfPeoplePicker: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
+  {
+      return String(numsOfPeople[row])
+  }
+    
+  func pickerView(_ numOfPeoplePicker: UIPickerView, numberOfRowsInComponent component: Int) -> Int
+  {
+      return numsOfPeople.count
+  }
+    
+  func pickerView(_ numOfPeoplePicker: UIPickerView, didSelectRow row: Int, inComponent component: Int)
+  {
+      numOfPeople = numsOfPeople[row]
+  }
+
   // MARK: - UIViewController
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    self.numOfPeoplePicker.delegate = self
+    self.numOfPeoplePicker.dataSource = self
 
     imageView.addSubview(annotationOverlayView)
     NSLayoutConstraint.activate([
@@ -138,7 +167,7 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
         resultsAlertController.dismiss(animated: true, completion: nil)
       }
     )
-    resultsAlertController.message = resultsText
+    resultsAlertController.message = "number of people: \(numOfPeople)\nresults:\n\(resultsText)"
     resultsAlertController.popoverPresentationController?.barButtonItem = detectButton
     resultsAlertController.popoverPresentationController?.sourceView = self.view
     present(resultsAlertController, animated: true, completion: nil)
@@ -167,6 +196,13 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
       guard let finalImage = scaledImage else { return }
       DispatchQueue.main.async {
         self.imageView.image = finalImage
+        
+        print("image", self.imageView.image)
+        // if there is an image present, hide numofpeople label and picker
+        if self.imageView.image != nil {
+          self.numOfPeopleLabel.isHidden = true
+          self.numOfPeoplePicker.isHidden = true
+        }
       }
     }
   }
