@@ -51,6 +51,7 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
   // @IBOutlet fileprivate weak var detectorPicker: UIPickerView!
   @IBOutlet weak var numOfPeopleLabel: UILabel!
   @IBOutlet weak var numOfPeoplePicker: UIPickerView!
+  @IBOutlet weak var counterNoP: UILabel!
   @IBOutlet fileprivate weak var imageView: UIImageView!
   @IBOutlet fileprivate weak var photoCameraButton: UIBarButtonItem!
   @IBOutlet weak var detectButton: UIBarButtonItem!
@@ -426,6 +427,7 @@ extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate {
   func pickerView(_ numOfPeoplePicker: UIPickerView, didSelectRow row: Int, inComponent component: Int)
   {
       numOfPeople = numsOfPeople[row]
+      counterNoP.text = "Number of People: \(numOfPeople)"
   }
 }
 

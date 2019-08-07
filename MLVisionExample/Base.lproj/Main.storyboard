@@ -47,14 +47,21 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="RLv-lI-aQm"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="cR0-7i-Xm8"/>
                                     <barButtonItem title="Detect" id="Dwb-uQ-3dE" userLabel="Detect Button">
                                         <connections>
                                             <action selector="detect:" destination="BYZ-38-t0r" id="oTX-fI-9ty"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="cR0-7i-Xm8"/>
                                 </items>
                             </toolbar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Number of People" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pGK-nO-sC7">
+                                <rect key="frame" x="0.0" y="183" width="375" height="59"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xri-yA-1fm">
                                 <rect key="frame" x="0.0" y="266" width="375" height="216"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -78,9 +85,9 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="aEw-JJ-oRD"/>
                                 </items>
                             </toolbar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Number of People" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pGK-nO-sC7">
-                                <rect key="frame" x="0.0" y="183" width="375" height="59"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Number of People: 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bUP-sO-UpK">
+                                <rect key="frame" x="16" y="635" width="281" height="21"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -92,6 +99,7 @@
                         <barButtonItem key="backBarButtonItem" title=" " id="QLp-QO-2R9"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="counterNoP" destination="bUP-sO-UpK" id="bbV-Kb-cwQ"/>
                         <outlet property="detectButton" destination="Dwb-uQ-3dE" id="8Hn-BT-3m1"/>
                         <outlet property="downloadProgressView" destination="xaG-Fk-Kew" id="h0c-hg-58T"/>
                         <outlet property="imageView" destination="cCp-tA-gDT" id="FIt-va-neE"/>
