@@ -52,6 +52,8 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
   @IBOutlet weak var numOfPeopleLabel: UILabel!
   @IBOutlet weak var numOfPeoplePicker: UIPickerView!
   @IBOutlet weak var counterNoP: UILabel!
+  @IBOutlet weak var photoToolbar: UIToolbar!
+  @IBOutlet weak var detectToolbar: UIToolbar!
   @IBOutlet fileprivate weak var imageView: UIImageView!
   @IBOutlet fileprivate weak var photoCameraButton: UIBarButtonItem!
   @IBOutlet weak var detectButton: UIBarButtonItem!
@@ -137,25 +139,6 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
     self.resultsText = ""
   }
 
-  private func showResults() {
-    // this is executed when detect is clicked
-    let resultsAlertController = UIAlertController(
-      title: "Detection Results",
-      message: nil,
-      preferredStyle: .actionSheet
-    )
-    resultsAlertController.addAction(
-      UIAlertAction(title: "OK", style: .destructive) { _ in
-        resultsAlertController.dismiss(animated: true, completion: nil)
-      }
-    )
-    resultsAlertController.message = "number of people: \(numOfPeople)\nresults:\n\(resultsText)"
-    resultsAlertController.popoverPresentationController?.barButtonItem = detectButton
-    resultsAlertController.popoverPresentationController?.sourceView = self.view
-    present(resultsAlertController, animated: true, completion: nil)
-    print(resultsText)
-  }
-
   /// Updates the image view with a scaled version of the given image.
   private func updateImageView(with image: UIImage) {
     let orientation = UIApplication.shared.statusBarOrientation
@@ -220,22 +203,24 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
   }
 
   private func process(_ visionImage: VisionImage, with textRecognizer: VisionTextRecognizer?) {
+    // this is executed when detect is clicked
+    // things to be done after detect is clicked
+    //     - make dots for the number of people
+    //     - start draggable session and make uilabels draggable
+    //     - hide everything except photo and labels
     textRecognizer?.process(visionImage) { text, error in
       guard error == nil, let text = text else {
         let errorString = error?.localizedDescription ?? Constants.detectionNoResultsMessage
         self.resultsText = "Text recognizer failed with error: \(errorString)"
-        self.showResults()
+        // self.showResults()
         return
       }
+      self.photoToolbar.isHidden = true
+      self.detectToolbar.isHidden = true
+      self.counterNoP.isHidden = true
+        
       // Blocks.
       for block in text.blocks {
-        let transformedRect = block.frame.applying(self.transformMatrix())
-        UIUtilities.addRectangle(
-          transformedRect,
-          to: self.annotationOverlayView,
-          color: UIColor.purple
-        )
-        
         print("block of text below:\n", block.text)
 
         // Lines.
@@ -246,83 +231,16 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
             to: self.annotationOverlayView,
             color: UIColor.orange
           )
-          /*
-          // Elements.
-          for element in line.elements {
-            let transformedRect = element.frame.applying(self.transformMatrix())
-            UIUtilities.addRectangle(
-              transformedRect,
-              to: self.annotationOverlayView,
-              color: UIColor.green
-            )
-            let label = UILabel(frame: transformedRect)
-            label.text = element.text
-            label.adjustsFontSizeToFitWidth = true
-            self.annotationOverlayView.addSubview(label)
-          } */
+          let label = UILabel(frame: transformedRect)
+          label.text = line.text
+          label.adjustsFontSizeToFitWidth = true
+          label.isUserInteractionEnabled = true
+          label.backgroundColor = UIColor(hue: 0.0806, saturation: 0.53, brightness: 0.96, alpha: 0.5)
+          self.annotationOverlayView.addSubview(label)
         }
       }
       self.resultsText += "\(text.text)\n"
-      self.showResults()
-    }
-  }
-
-  private func process(
-    _ visionImage: VisionImage,
-    with documentTextRecognizer: VisionDocumentTextRecognizer?
-    ) {
-    documentTextRecognizer?.process(visionImage) { text, error in
-      guard error == nil, let text = text else {
-        let errorString = error?.localizedDescription ?? Constants.detectionNoResultsMessage
-        self.resultsText = "Document text recognizer failed with error: \(errorString)"
-        self.showResults()
-        return
-      }
-      // Blocks.
-      for block in text.blocks {
-        let transformedRect = block.frame.applying(self.transformMatrix())
-        UIUtilities.addRectangle(
-          transformedRect,
-          to: self.annotationOverlayView,
-          color: UIColor.purple
-        )
-
-        // Paragraphs.
-        for paragraph in block.paragraphs {
-          let transformedRect = paragraph.frame.applying(self.transformMatrix())
-          UIUtilities.addRectangle(
-            transformedRect,
-            to: self.annotationOverlayView,
-            color: UIColor.orange
-          )
-
-          // Words.
-          for word in paragraph.words {
-            let transformedRect = word.frame.applying(self.transformMatrix())
-            UIUtilities.addRectangle(
-              transformedRect,
-              to: self.annotationOverlayView,
-              color: UIColor.green
-            )
-
-            // Symbols.
-            for symbol in word.symbols {
-              let transformedRect = symbol.frame.applying(self.transformMatrix())
-              UIUtilities.addRectangle(
-                transformedRect,
-                to: self.annotationOverlayView,
-                color: UIColor.cyan
-              )
-              let label = UILabel(frame: transformedRect)
-              label.text = symbol.text
-              label.adjustsFontSizeToFitWidth = true
-              self.annotationOverlayView.addSubview(label)
-            }
-          }
-        }
-      }
-      self.resultsText += "\(text.text)\n"
-      self.showResults()
+      // self.showResults()
     }
   }
 

@@ -101,11 +101,13 @@
                     <connections>
                         <outlet property="counterNoP" destination="bUP-sO-UpK" id="bbV-Kb-cwQ"/>
                         <outlet property="detectButton" destination="Dwb-uQ-3dE" id="8Hn-BT-3m1"/>
+                        <outlet property="detectToolbar" destination="yof-fW-vlO" id="1PK-dD-xqm"/>
                         <outlet property="downloadProgressView" destination="xaG-Fk-Kew" id="h0c-hg-58T"/>
                         <outlet property="imageView" destination="cCp-tA-gDT" id="FIt-va-neE"/>
                         <outlet property="numOfPeopleLabel" destination="pGK-nO-sC7" id="jud-Pr-1tA"/>
                         <outlet property="numOfPeoplePicker" destination="xri-yA-1fm" id="Bp0-xB-z7i"/>
                         <outlet property="photoCameraButton" destination="jD4-E9-bbj" id="cf0-4Q-UL8"/>
+                        <outlet property="photoToolbar" destination="POq-8j-gOJ" id="pr2-10-tAL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
