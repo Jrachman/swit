@@ -63,8 +63,10 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
   @IBOutlet var downloadProgressView: UIProgressView!
     
   let numsOfPeople = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
-  var numOfPeople = 0
-
+  var numOfPeople = 1
+  var imageViewHeight: Float = 0
+  var imageViewWidth: Float = 0
+  
   // MARK: - UIViewController
 
   override func viewDidLoad() {
@@ -81,7 +83,11 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
       annotationOverlayView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
       annotationOverlayView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor),
       annotationOverlayView.bottomAnchor.constraint(equalTo: imageView.bottomAnchor),
-      ])
+    ])
+    
+    imageViewHeight = Float(imageView.frame.size.height)
+    imageViewWidth = Float(imageView.frame.size.width)
+    print("imageViewDimensions: \(imageViewHeight), \(imageViewWidth)")
 
     imagePicker.delegate = self
     imagePicker.sourceType = .photoLibrary
@@ -115,6 +121,10 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
     self.detectToolbar.isHidden = false
     self.counterNoP.isHidden = false
     self.dragModeToolbar.isHidden = true
+    imageView.image = nil
+    self.numOfPeopleLabel.isHidden = false
+    self.numOfPeoplePicker.isHidden = false
+    self.counterNoP.text = "Capture Receipt"
     clearResults()
   }
   @IBAction func detect(_ sender: Any) {
@@ -251,9 +261,9 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
           label.adjustsFontSizeToFitWidth = true
           label.isUserInteractionEnabled = true
           label.backgroundColor = UIColor(hue: 0.0806, saturation: 0.53, brightness: 0.96, alpha: 0.5)
-            self.listOfLabels.append(label)
-          print(self.listOfLabels)
           self.annotationOverlayView.addSubview(label)
+          self.listOfLabels.append(label)
+          print(self.listOfLabels)
         }
       }
       // self.resultsText += "\(text.text)\n"
