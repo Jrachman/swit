@@ -20,6 +20,7 @@ import Firebase
 /// Main view controller class.
 @objc(ViewController)
 class ViewController:  UIViewController, UINavigationControllerDelegate {
+    var listOfLabels: [UILabel] = []
     
   /// Firebase vision instance.
   // [START init_vision]
@@ -54,6 +55,8 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
   @IBOutlet weak var counterNoP: UILabel!
   @IBOutlet weak var photoToolbar: UIToolbar!
   @IBOutlet weak var detectToolbar: UIToolbar!
+  @IBOutlet weak var dragModeToolbar: UINavigationBar!
+  @IBOutlet weak var exitButton: UIBarButtonItem!
   @IBOutlet fileprivate weak var imageView: UIImageView!
   @IBOutlet fileprivate weak var photoCameraButton: UIBarButtonItem!
   @IBOutlet weak var detectButton: UIBarButtonItem!
@@ -66,6 +69,8 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    self.dragModeToolbar.isHidden = true
     
     self.numOfPeoplePicker.delegate = self
     self.numOfPeoplePicker.dataSource = self
@@ -104,10 +109,18 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
 
   // MARK: - IBActions
 
+  @IBAction func exitIdentify(_ sender: Any) {
+    print("exit initated")
+    self.photoToolbar.isHidden = false
+    self.detectToolbar.isHidden = false
+    self.counterNoP.isHidden = false
+    self.dragModeToolbar.isHidden = true
+    clearResults()
+  }
   @IBAction func detect(_ sender: Any) {
     clearResults()
     detectTextOnDevice(image: imageView.image)
-    }
+  }
 
   @IBAction func openPhotoLibrary(_ sender: Any) {
     imagePicker.sourceType = .photoLibrary
@@ -136,7 +149,8 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
   /// Clears the results text view and removes any frames that are visible.
   private func clearResults() {
     removeDetectionAnnotations()
-    self.resultsText = ""
+    self.listOfLabels = []
+    // self.resultsText = ""
   }
 
   /// Updates the image view with a scaled version of the given image.
@@ -211,13 +225,14 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
     textRecognizer?.process(visionImage) { text, error in
       guard error == nil, let text = text else {
         let errorString = error?.localizedDescription ?? Constants.detectionNoResultsMessage
-        self.resultsText = "Text recognizer failed with error: \(errorString)"
+        // self.resultsText = "Text recognizer failed with error: \(errorString)"
         // self.showResults()
         return
       }
       self.photoToolbar.isHidden = true
       self.detectToolbar.isHidden = true
       self.counterNoP.isHidden = true
+      self.dragModeToolbar.isHidden = false
         
       // Blocks.
       for block in text.blocks {
@@ -236,10 +251,12 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
           label.adjustsFontSizeToFitWidth = true
           label.isUserInteractionEnabled = true
           label.backgroundColor = UIColor(hue: 0.0806, saturation: 0.53, brightness: 0.96, alpha: 0.5)
+            self.listOfLabels.append(label)
+          print(self.listOfLabels)
           self.annotationOverlayView.addSubview(label)
         }
       }
-      self.resultsText += "\(text.text)\n"
+      // self.resultsText += "\(text.text)\n"
       // self.showResults()
     }
   }
@@ -261,18 +278,7 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
       updateConditions: updateConditions
     )
     modelManager.register(remoteModel)
-    NotificationCenter.default.addObserver(
-      self,
-      selector: #selector(remoteModelDownloadDidSucceed(_:)),
-      name: .firebaseMLModelDownloadDidSucceed,
-      object: nil
-    )
-    NotificationCenter.default.addObserver(
-      self,
-      selector: #selector(remoteModelDownloadDidFail(_:)),
-      name: .firebaseMLModelDownloadDidFail,
-      object: nil
-    )
+
     downloadProgressView.isHidden = false
     downloadProgressView.observedProgress = modelManager.download(remoteModel)
 
@@ -286,43 +292,6 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
     let localModel = LocalModel(name: Constants.localAutoMLModelName, path: localModelFilePath)
     modelManager.register(localModel)
     areAutoMLModelsRegistered = true
-  }
-
-  // MARK: - Notifications
-
-  @objc
-  private func remoteModelDownloadDidSucceed(_ notification: Notification) {
-    let notificationHandler = {
-      self.downloadProgressView.isHidden = true
-      guard let userInfo = notification.userInfo,
-        let remoteModel =
-        userInfo[ModelDownloadUserInfoKey.remoteModel.rawValue] as? RemoteModel
-        else {
-          self.resultsText += "firebaseMLModelDownloadDidSucceed notification posted without a RemoteModel instance."
-          return
-      }
-      self.resultsText += "Successfully downloaded the remote model with name: \(remoteModel.name). The model is ready for detection."
-    }
-    if Thread.isMainThread { notificationHandler(); return }
-    DispatchQueue.main.async { notificationHandler() }
-  }
-
-  @objc
-  private func remoteModelDownloadDidFail(_ notification: Notification) {
-    let notificationHandler = {
-      self.downloadProgressView.isHidden = true
-      guard let userInfo = notification.userInfo,
-        let remoteModel =
-        userInfo[ModelDownloadUserInfoKey.remoteModel.rawValue] as? RemoteModel,
-        let error = userInfo[ModelDownloadUserInfoKey.error.rawValue] as? NSError
-        else {
-          self.resultsText += "firebaseMLModelDownloadDidFail notification posted without a RemoteModel instance or error."
-          return
-      }
-      self.resultsText += "Failed to download the remote model with name: \(remoteModel.name), error: \(error)."
-    }
-    if Thread.isMainThread { notificationHandler(); return }
-    DispatchQueue.main.async { notificationHandler() }
   }
 }
 
