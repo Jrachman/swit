@@ -20,7 +20,8 @@ import Firebase
 /// Main view controller class.
 @objc(ViewController)
 class ViewController:  UIViewController, UINavigationControllerDelegate {
-    var listOfLabels: [UILabel] = []
+  var listOfLabels: [UILabel] = []
+  var listOfDots: [CAShapeLayer] = []
     
   /// Firebase vision instance.
   // [START init_vision]
@@ -62,7 +63,7 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
   @IBOutlet weak var detectButton: UIBarButtonItem!
   @IBOutlet var downloadProgressView: UIProgressView!
     
-  let numsOfPeople = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+  let numsOfPeople = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
   var numOfPeople = 1
   var imageViewHeight: Float = 0
   var imageViewWidth: Float = 0
@@ -127,9 +128,31 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
     self.counterNoP.text = "Capture Receipt"
     clearResults()
   }
+    
   @IBAction func detect(_ sender: Any) {
     clearResults()
     detectTextOnDevice(image: imageView.image)
+    
+    let separator = imageViewHeight/Float(numOfPeople+1)
+    print("separator: \(separator)")
+    for i in 1..<(numOfPeople+1) {
+        let circlePath = UIBezierPath(arcCenter: CGPoint(x: Double(imageViewWidth-20), y: Double(separator*Float(i))), radius: CGFloat(15), startAngle: CGFloat(0), endAngle:CGFloat(Double.pi * 2), clockwise: true)
+
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.path = circlePath.cgPath
+
+        //change the fill color
+        shapeLayer.fillColor = UIColor.orange.cgColor
+        //you can change the stroke color
+        shapeLayer.strokeColor = UIColor.black.cgColor
+        //you can change the line width
+        shapeLayer.lineWidth = 2.0
+
+        imageView.layer.addSublayer(shapeLayer)
+        
+        listOfDots.append(shapeLayer)
+        print(listOfDots)
+    }
   }
 
   @IBAction func openPhotoLibrary(_ sender: Any) {
@@ -154,12 +177,16 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
     for annotationView in annotationOverlayView.subviews {
       annotationView.removeFromSuperview()
     }
+    for dot in self.listOfDots {
+        dot.removeFromSuperlayer()
+    }
   }
 
   /// Clears the results text view and removes any frames that are visible.
   private func clearResults() {
     removeDetectionAnnotations()
     self.listOfLabels = []
+    self.listOfDots = []
     // self.resultsText = ""
   }
 
@@ -220,10 +247,6 @@ class ViewController:  UIViewController, UINavigationControllerDelegate {
     var transform = CGAffineTransform.identity.translatedBy(x: xValue, y: yValue)
     transform = transform.scaledBy(x: scale, y: scale)
     return transform
-  }
-
-  private func pointFrom(_ visionPoint: VisionPoint) -> CGPoint {
-    return CGPoint(x: CGFloat(visionPoint.x.floatValue), y: CGFloat(visionPoint.y.floatValue))
   }
 
   private func process(_ visionImage: VisionImage, with textRecognizer: VisionTextRecognizer?) {
